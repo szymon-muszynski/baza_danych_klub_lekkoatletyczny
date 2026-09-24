@@ -109,16 +109,6 @@ Aby wdrożyć projekt w bazie Oracle, należy **bezwzględnie zachować kolejno�
 4. **`04_pakiety_specyfikacje.sql`** – stworzenie nagłówków interfejsów PL/SQL.
 5. **`05_pakiety_ciala.sql`** – kompilacja logiki silnika bazy.
 6. *(Opcjonalnie)* **`06_dane_startowe_i_testy.sql`** – wypełnia bazę przykładowym trenerem, miejscami oraz prezentuje manualne wywołania funkcji (tworzenie zawodnika, rejestracja wyników, sprawdzanie logiki triggerów i harmonogramowania).
-
-```bash
-sqlplus user/password@database @01_typy_obiektowe.sql
-sqlplus user/password@database @02_sekwencje_i_tabele.sql
-sqlplus user/password@database @03_wyzwalacze.sql
-sqlplus user/password@database @04_pakiety_specyfikacje.sql
-sqlplus user/password@database @05_pakiety_ciala.sql
-sqlplus user/password@database @06_dane_startowe_i_testy.sql
-```
-
 ---
 
 ## 🛠 Wymagania
