@@ -1,4 +1,4 @@
--- Ciała pakietów implementujące logikę
+-- Ciala pakietow, implementacja logiki
 
 
 CREATE OR REPLACE NONEDITIONABLE PACKAGE BODY TERMINARZ AS

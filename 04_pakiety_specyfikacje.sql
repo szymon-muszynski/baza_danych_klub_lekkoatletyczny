@@ -1,4 +1,4 @@
--- Specyfikacje pakietów PL/SQL
+-- Specyfikacje/definicje pakietow 
 
 
 CREATE OR REPLACE NONEDITIONABLE PACKAGE TERMINARZ AS 

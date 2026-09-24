@@ -1,9 +1,9 @@
--- Deklaracje typ√≥w podstawowych i z≈Ço≈ºonych
+-- Deklaracje typow podstawowych i z≥oøonych
 
 CREATE OR REPLACE TYPE OSOBY_ID_TAB AS TABLE OF NUMBER(4,0);
 /
 
-CREATE OR REPLACE TYPE MIEJSCE_TYP FORCE AS OBJECT (
+CREATE OR REPLACE TYPE MIEJSCE_TYP AS OBJECT (
     MIEJSCE_ID NUMBER,
     Nazwa VARCHAR2(50),
     Max_osob NUMBER

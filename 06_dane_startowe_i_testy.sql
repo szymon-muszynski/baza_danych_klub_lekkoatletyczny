@@ -1,4 +1,4 @@
--- Skrypty wprowadzające dane początkowe oraz testowe wywołania
+-- Skrypty wprowadzajace dane poczatkowe oraz testowe wywolania
 
 
 INSERT INTO Osoba_tab (Osoba_id, Imie, Nazwisko, Kraj_pochodzenia, Data_urodzenia, Rola, Przelozony, wytrenowanie, Wystepy, Dyscypliny, Wyniki_dyscyplin, Active, Koniec_ubezpieczenia)
