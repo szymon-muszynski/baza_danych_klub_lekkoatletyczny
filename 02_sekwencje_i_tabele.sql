@@ -1,4 +1,4 @@
--- Sekwencje oraz tabele przechowujące obiekty
+-- Sekwencje oraz tabele przechowujace obiekty
 
 
 CREATE SEQUENCE MIEJSCA_TAB_SEQ START WITH 1 INCREMENT BY 1;
