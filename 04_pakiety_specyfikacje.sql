@@ -2,7 +2,7 @@
 
 
 CREATE OR REPLACE NONEDITIONABLE PACKAGE TERMINARZ AS 
-    PROCEDURE CZYSZCZENIE_AKTYWNOSCI;
+    PROCEDURE ZAKONCZ_MINIONE_AKTYWNOSCI;
 
     PROCEDURE DODAJ_MIEJSCE (
         nazwa_miejsca IN VARCHAR2,
@@ -11,21 +11,21 @@ CREATE OR REPLACE NONEDITIONABLE PACKAGE TERMINARZ AS
     
     PROCEDURE DODAJ_AKTYWNOSC (
         p_Typ IN VARCHAR2,
-        p_TERMIN TERMIN,
+        p_TERMIN TERMIN_TYP,
         p_Okresowe IN NUMBER,
-        p_Lista_Osob IN OSOBY_ID_TAB,
+        p_Lista_Osob IN OSOBY_REF_TAB, 
         p_Miejsce_ID IN NUMBER
     );
 
     FUNCTION ZAJETE_MIEJSCE (
-        T1 TERMIN,
-        P_MIEJSCE NUMBER,
+        T1 TERMIN_TYP,
+        p_Miejsce_ID NUMBER,
         DODATKOWA_LICZBA_OSOB NUMBER
     ) RETURN BOOLEAN;
 
     FUNCTION ZAJETY_ZAWODNIK (
-        T1 TERMIN,
-        p_Lista_Osob IN OSOBY_ID_TAB
+        T1 TERMIN_TYP,
+        p_Lista_Osob IN OSOBY_REF_TAB
     ) RETURN BOOLEAN;
 
     PROCEDURE Usun_Miejsce (
@@ -37,14 +37,14 @@ CREATE OR REPLACE NONEDITIONABLE PACKAGE TERMINARZ AS
     );
 END TERMINARZ;
 /
-
+---------------------------------------------------
 CREATE OR REPLACE NONEDITIONABLE PACKAGE TRENER AS 
     PROCEDURE DODAJ_RAPORT(
         p_aktywnosc_id   IN NUMBER,
-        p_lista_obecnych   IN OSOBY_ID_TAB,
-        UWAGI IN VARCHAR2
+        p_lista_obecnych IN OSOBY_REF_TAB,
+        p_uwagi          IN VARCHAR2
     );
-    
+
     PROCEDURE USUN_RAPORT(
         P_RAPORT_ID IN NUMBER
     );
@@ -52,9 +52,10 @@ CREATE OR REPLACE NONEDITIONABLE PACKAGE TRENER AS
     PROCEDURE WYSWIETL_OBECNOSCI_ZAWODNIKA(
         P_ZAWODNIK_ID NUMBER
     );
+    
 END TRENER;
 /
-
+-----------------------------------------------------
 CREATE OR REPLACE NONEDITIONABLE PACKAGE WYSWIETLANIE AS 
     PROCEDURE WYSWIETL_AKTYWNOSCI_OSOBY (
         OSOBA_ID NUMBER,
@@ -63,13 +64,16 @@ CREATE OR REPLACE NONEDITIONABLE PACKAGE WYSWIETLANIE AS
         DZIEN NUMBER 
     );
 
-    PROCEDURE WYSWIETL_DZIEN(DZIEN NUMBER);
-    PROCEDURE POKAZ_WSZYTSKIE_AKTYWNOSCI;
-    PROCEDURE WYSWIETL_LISTE(LISTA OSOBY_ID_TAB);
+    PROCEDURE POKAZ_WSZYSTKIE_AKTYWNOSCI;
+    
+    PROCEDURE WYSWIETL_ZAWODNIKOW_DLA_AKTYWNOSCI(P_AKTYWNOSC_ID NUMBER);
+    
     PROCEDURE WYSWIETL_KONDYCJE_ZAWODNIKA(ZAWODNIK_ID NUMBER);
+    
+    PROCEDURE WYSWIETL_WSZYSTKICH_ZAWODNIKOW;
 END WYSWIETLANIE;
 /
-
+-------------------------------------------------------
 CREATE OR REPLACE PACKAGE OBSLUGA_ZAWODNIKA AS
     PROCEDURE DodajZawodnika(
         p_Imie VARCHAR2,
@@ -91,39 +95,27 @@ CREATE OR REPLACE PACKAGE OBSLUGA_ZAWODNIKA AS
         p_Przydzielony_trener NUMBER := NULL
     );
 
-    PROCEDURE ZmienStatusZawodnika(
+    PROCEDURE AktualizujKondycje(
         p_Osoba_id NUMBER,
-        p_Status NUMBER
+        p_Kondycja NUMBER := NULL,
+        p_Masa NUMBER := NULL,
+        p_Wzrost NUMBER := NULL
     );
 
-    PROCEDURE DodajWystep(
-        p_Osoba_id NUMBER,
-        p_Wystep Wystepy_typ
-    );
+    PROCEDURE ZmienStatusZawodnika(p_Osoba_id NUMBER, p_Status NUMBER);
+    PROCEDURE AktualizujUbezpieczenie(p_Osoba_id NUMBER, p_Koniec_ubezpieczenia DATE);
 
-    PROCEDURE AktualizujPB(
-        p_Osoba_id   NUMBER,
-        p_Dyscyplina VARCHAR2,
-        p_Wynik      NUMBER,
-        p_Rok        NUMBER
-    );
+    PROCEDURE DodajWystep(p_Osoba_id NUMBER, p_Wystep Wystepy_typ);
+    PROCEDURE DodajDyscypline(p_Osoba_id NUMBER,p_Dyscyplina Dyscyplina_typ);
+    PROCEDURE AktualizujPB(p_Osoba_id NUMBER, p_Dyscyplina VARCHAR2,p_Wynik NUMBER, p_Rok NUMBER);
 
-    PROCEDURE DodajDyscypline(
-        p_Osoba_id NUMBER,
-        p_Dyscyplina Dyscyplina_typ
-    );
-
-    PROCEDURE AktualizujUbezpieczenie(
-        p_Osoba_id NUMBER,
-        p_Koniec_ubezpieczenia DATE
-    );
-    
     FUNCTION CzyZawodnikIstnieje(p_OsobaId NUMBER) RETURN BOOLEAN;
     FUNCTION LiczbaAktywnychZawodnikow RETURN NUMBER;
-    FUNCTION PobierzSzczegolyZawodnika(p_OsobaId NUMBER) RETURN VARCHAR2;
-    FUNCTION WyswietlWystepyZawodnika(p_Osoba_id NUMBER) RETURN VARCHAR2;
     FUNCTION ZwrocPrzelozonego(p_Osoba_id NUMBER) RETURN VARCHAR2;
-    FUNCTION WyswietlWynikiZawodnika(p_Osoba_id NUMBER) RETURN VARCHAR2;
-    FUNCTION WyswietlZawodnikowPodTrenerem(p_Trener_id NUMBER) RETURN VARCHAR2;
+    
+    PROCEDURE PobierzSzczegolyZawodnika(p_OsobaId NUMBER);
+    PROCEDURE WyswietlWystepyZawodnika(p_Osoba_id NUMBER);
+    PROCEDURE WyswietlWynikiZawodnika(p_Osoba_id NUMBER);
+    PROCEDURE WyswietlZawodnikowPodTrenerem(p_Trener_id NUMBER);
 END OBSLUGA_ZAWODNIKA;
 /
