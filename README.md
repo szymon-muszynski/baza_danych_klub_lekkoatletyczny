@@ -1,6 +1,6 @@
 # 🏃 System Zarządzania Klubem Lekkoatletycznym (Oracle PL/SQL)
 
-Obiektowo-relacyjna baza danych stworzona w języku **Oracle PL/SQL**, służąca do zarządzania klubem lekkoatletycznym. System obsługuje zawodników, trenerów, harmonogramy treningów (aktywności), miejsca treningowe oraz raportowanie obecności i postępów (wyników PB – *Personal Bests*).
+Obiektowo-relacyjna baza danych stworzona w języku **Oracle PL/SQL**, służąca do zarządzania klubem lekkoatletycznym. System obsługuje zawodników, trenerów, harmonogramy treningów (aktywności), miejsca treningowe oraz raportowanie obecności i postępów (wyników PB – *Personal Bests*). 
 
 Projekt wykorzystuje **typy obiektowe** (z metodami i konstruktorem), **kolekcje** (Nested Tables), **referencje** (`REF`) oraz logikę zamkniętą w **pakietach** i **wyzwalaczach**.
 
